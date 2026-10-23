@@ -1,5 +1,18 @@
 -- [[ Custom Keymaps ]]
 
+-- Enable English and Norwegian Bokmål spelling checks for plain text and Typst documents.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'text', 'typst' },
+  callback = function(event)
+    vim.wo.spell = true
+    vim.bo[event.buf].spelllang = 'en_us,nb'
+
+    vim.keymap.set('n', '<leader>zc', 'z=', { buffer = event.buf, desc = 'Spell [C]orrections' })
+    vim.keymap.set('n', '<leader>zn', ']s', { buffer = event.buf, desc = 'Spell [N]ext misspelling' })
+    vim.keymap.set('n', '<leader>zp', '[s', { buffer = event.buf, desc = 'Spell [P]revious misspelling' })
+  end,
+})
+
 -- Buffer Management
 vim.keymap.set('n', '<leader>bd', '<cmd>confirm bd<CR>', { desc = '[B]uffer [D]elete' })
 vim.keymap.set('n', '<leader>bk', '<cmd>bd!<CR>', { desc = '[B]uffer [K]ill (Force)' })
