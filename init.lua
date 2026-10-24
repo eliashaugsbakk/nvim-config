@@ -686,6 +686,13 @@ require('lazy').setup({
         mode = '',
         desc = '[F]ormat buffer',
       },
+      {
+        '<leader>cf',
+        function() require('conform').format { async = true } end,
+        mode = '',
+        ft = { 'c', 'cpp' },
+        desc = '[C]ode [F]ormat',
+      },
     },
     ---@module 'conform'
     ---@type conform.setupOpts
@@ -708,6 +715,8 @@ require('lazy').setup({
       },
       -- You can also specify external formatters in here.
       formatters_by_ft = {
+        c = { 'clang_format' },
+        cpp = { 'clang_format' },
         -- rust = { 'rustfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
